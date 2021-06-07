@@ -10,11 +10,13 @@
     "e2e": "ng e2e"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.{ts,tsx}": [
+      "eslint --cache --fix"
+    ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && pretty-quick --staged"
+      "pre-commit": "lint-staged"
     }
   },
   "private": true,
