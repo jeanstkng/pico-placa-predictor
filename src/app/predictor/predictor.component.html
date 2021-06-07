@@ -1,2 +1,55 @@
-<button
-  class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-400">Hello</button>
+
+<div class="mt-8">
+    <div class="p-6 max-w-xs mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
+        <div>
+            <div class="text-xl font-medium text-black">Pico y Placa</div>
+            <p class="text-gray-600">Predictor for Ecuador</p>
+            <div *ngIf="isPicoYPlaca" class="text-xl font-medium text-black">{{ isPicoYPlaca === 'yes' ? "You can't drive!" : 'You can drive!'}}</div>
+        </div>
+    </div>
+</div>
+
+<div class="w-full max-w-xs mx-auto pt-16">
+    <form [formGroup]="predictForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="plateNumber">
+                Plate Number
+            </label>
+            <input style="text-transform:uppercase"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                formControlName="plateNumber" type="text" placeholder="PCZ-5156 / HY577S" minlength="6" maxlength="8" >
+            <p *ngIf="plateNumber?.errors?.invalidPlate || (plateNumber?.invalid && (plateNumber?.dirty || plateNumber?.touched))" class="text-red-500 text-xs italic">Please type a valid plate number.</p>
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="date">
+                Date
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                formControlName="date" type="text" placeholder="07/06/2021" minlength="10" maxlength="10">
+            <p *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="text-red-500 text-xs italic">Please type a valid date.</p>
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="time">
+                Time
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                formControlName="time" type="text" placeholder="17:00" minlength="5" maxlength="5">
+            <p *ngIf="time?.invalid && (time?.dirty || time?.touched)" class="text-red-500 text-xs italic">Please type a valid time.</p>
+        </div>
+        <div class="flex items-center justify-between">
+            <button (click)="predictPicoPlaca()" [disabled]="!predictForm.valid"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
+                type="button">
+                Predict
+            </button>
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="https://www.tramitesbasicos.com/pico-y-placa-ecuador/">
+                Want to know more?
+            </a>
+        </div>
+    </form>
+    <p class="text-center text-gray-500 text-xs">
+        &copy;2021 JeanStkng. Coding.
+    </p>
+</div>
